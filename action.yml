@@ -9,7 +9,7 @@ runs:
     - uses: actions/checkout@v3
       with:
         repository: democracytoday/kdiff
-        ref: main
+        ref: s/allow-ssh-resources
         path: .github/actions
     - run: sudo apt-get install colordiff ruby zsh
       shell: bash
