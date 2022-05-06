@@ -22,5 +22,5 @@ runs:
     - name: clone via https instead of ssh
       run: git config --global url.https://.insteadOf ssh://
       shell: bash
-    - run: ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
+    - run: GIT_TRACE=1 ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
       shell: bash
