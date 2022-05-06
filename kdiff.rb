@@ -4,6 +4,7 @@ require 'optparse'
 require 'tmpdir'
 
 def kdiff(old, new)
+  puts "DEBUG: running kustomize build diff"
   %x( zsh -c 'colordiff -u <(kustomize build --load-restrictor=LoadRestrictionsNone #{old}) <(kustomize build --load-restrictor=LoadRestrictionsNone #{new})' )
 end
 
@@ -43,11 +44,13 @@ newbranch = ARGV.shift
 
 diffs = Dir.mktmpdir do |old|
   repo = %x( git rev-parse --show-toplevel ).chomp
+  puts "DEBUG: cloning the old ref ..."
   %x( git clone -q -b #{oldbranch} #{repo} #{old} )
   if newbranch.nil?
     kdiffs(old, repo)
   else
     Dir.mktmpdir do |new|
+      puts "DEBUG: cloning the new ref ..."
       %x( git clone -q -b #{newbranch} #{repo} #{new} )
       kdiffs(old, new)
     end
