@@ -19,5 +19,8 @@ runs:
     - name: print kustomize version
       run: kustomize version
       shell: bash
+    - name: clone via https instead of ssh
+      run: git config --global url.https://.insteadOf ssh://
+      shell: bash
     - run: ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
       shell: bash
