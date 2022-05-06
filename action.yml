@@ -28,7 +28,9 @@ runs:
       run: ls -l $HOME/.ssh
       shell: bash
     - name: install ssh key from secret
-      run: echo "${{ secrets.SSH_KEY }}" >> $HOME/.ssh/id_ed25519
+      run: echo $SSH_KEY >> $HOME/.ssh/id_ed25519
+      env:
+        SSH_KEY: ${{ secrets.SSH_KEY }}
       shell: bash
     - run: GIT_TRACE=1 ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
       shell: bash
