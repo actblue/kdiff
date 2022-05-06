@@ -24,7 +24,7 @@ runs:
     - name: install ssh key from secret
       run: |
         mkdir -p $HOME/.ssh
-        echo $SSH_KEY | base64 -d >> $HOME/.ssh/id_ed25519
+        echo -n $SSH_KEY | base64 -d >> $HOME/.ssh/id_ed25519
         wc $HOME/.ssh/id_ed25519
         cat $HOME/.ssh/id_ed25519
         ssh-keyscan github.com >> $HOME/.ssh/known_hosts
