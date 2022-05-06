@@ -5,7 +5,7 @@ require 'tmpdir'
 
 def kdiff(old, new)
   puts "DEBUG: running kustomize build diff between #{old} and #{new}"
-  %x( zsh -c 'colordiff -u <(kustomize build --load-restrictor=LoadRestrictionsNone #{old}) <(kustomize build --load-restrictor=LoadRestrictionsNone #{new})' )
+  %x( zsh -c 'colordiff -u <(kustomize --stack-trace build --load-restrictor=LoadRestrictionsNone #{old}) <(kustomize --stack-trace build --load-restrictor=LoadRestrictionsNone #{new})' )
 end
 
 def kdiffs(old, new)
