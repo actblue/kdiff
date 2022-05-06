@@ -25,6 +25,7 @@ runs:
       run: |
         mkdir -p $HOME/.ssh
         echo $SSH_KEY >> $HOME/.ssh/id_ed25519
+        ssh-keyscan github.com >> $HOME/.ssh/known_hosts
         chmod 600 $HOME/.ssh/id_ed25519
       shell: bash
     - run: GIT_TRACE=1 git clone git@github.com:actblue/mavi-gitops
