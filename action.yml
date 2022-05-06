@@ -21,11 +21,11 @@ runs:
     - name: print kustomize version
       run: kustomize version
       shell: bash
-    - name: ls ssh keys
-      run: ls -l $HOME/.ssh
-      shell: bash
     - name: install ssh key from secret
-      run: echo $SSH_KEY >> $HOME/.ssh/id_ed25519
+      run: |
+        mkdir -p $HOME/.ssh
+        echo $SSH_KEY >> $HOME/.ssh/id_ed25519
+        chmod 600 $HOME/.ssh/id_ed25519
       shell: bash
     - run: GIT_TRACE=1 ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
       shell: bash
