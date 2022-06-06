@@ -3,23 +3,29 @@ descrption: "Print kustomize diff output for multiple clusters"
 runs: 
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
+    - name: Clone repo
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - uses: actions/checkout@v3
+    - name: Configure git to use ssh
+      run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+    - name: Checkout kdiff repo
+      uses: actions/checkout@v3
       with:
         repository: democracytoday/kdiff
         ref: main
         path: .github/actions
-    - run: sudo apt-get install colordiff ruby zsh
+    - name: Install dependencies
+      run: sudo apt-get install colordiff ruby zsh
       shell: bash
-    - name: fetch pull request target branch
+    - name: Fetch pull request target branch
       run: |
         git fetch origin $GITHUB_BASE_REF
         git branch --track $GITHUB_BASE_REF origin/$GITHUB_BASE_REF
       shell: bash
-    - name: print kustomize version
+    - name: Print kustomize version
       run: kustomize version
       shell: bash
-    - run: ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
+    - name: Run kdiff
+      run: ruby .github/actions/kdiff.rb $GITHUB_BASE_REF
       shell: bash
